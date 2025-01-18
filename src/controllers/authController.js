@@ -5,9 +5,6 @@ import { eq } from 'drizzle-orm'
 
 export const registerUser = async (req, res) => {
 	const { email, password } = req.body
-	if (!email || !password) {
-		return res.status(400).send('Email and password are required')
-	}
 
 	const [user] = await db
 		.select()
@@ -27,14 +24,17 @@ export const registerUser = async (req, res) => {
 		.values({ email, password: hashedPassword })
 		.returning()
 	const token = utils.generateToken({ id: newUser.id })
-	return res.status(201).json({ token, user: newUser.id })
+	return res.status(201).json({
+		message: 'User registered successfully',
+		data: {
+			token,
+			user: newUser.id
+		}
+	})
 }
 
 export const loginUser = async (req, res) => {
 	const { email, password } = req.body
-	if (!email || !password) {
-		return res.status(400).send('Email and password are required')
-	}
 
 	const [existingUser] = await db
 		.select()
@@ -56,5 +56,11 @@ export const loginUser = async (req, res) => {
 	}
 
 	const token = utils.generateToken({ id: existingUser.id })
-	return res.status(201).json({ token, user: existingUser.id })
+	return res.status(201).json({
+		message: 'User logged in successfully',
+		data: {
+			token,
+			user: existingUser.id
+		}
+	})
 }
