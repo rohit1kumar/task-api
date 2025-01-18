@@ -3,6 +3,9 @@ import db from '../config/database.js'
 import utils from '../utils/index.js'
 import { eq } from 'drizzle-orm'
 
+/**
+ * Register a new user with unique email and password returns a token
+ */
 export const registerUser = async (req, res) => {
 	const { email, password } = req.body
 
@@ -33,6 +36,9 @@ export const registerUser = async (req, res) => {
 	})
 }
 
+/**
+ *	Log in a user with email and password returns a token
+ */
 export const loginUser = async (req, res) => {
 	const { email, password } = req.body
 

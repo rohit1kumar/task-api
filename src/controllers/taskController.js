@@ -2,6 +2,9 @@ import TaskTable from '../models/tasks.js'
 import db from '../config/database.js'
 import { eq } from 'drizzle-orm'
 
+/**
+ * Create a new task for the user, returns the created task
+ */
 export const createTask = async (req, res) => {
 	const { title, description } = req.body
 	const { id: userId } = req.user
@@ -16,6 +19,9 @@ export const createTask = async (req, res) => {
 	})
 }
 
+/**
+ * Get all tasks for the logged in user
+ */
 export const getTasksByUser = async (req, res) => {
 	const { id: userId } = req.user
 	// TODO: add pagination
@@ -29,6 +35,9 @@ export const getTasksByUser = async (req, res) => {
 	})
 }
 
+/**
+ * Update a task by id for the logged in user, check if task belongs to user
+ */
 export const updateTaskById = async (req, res) => {
 	const { id } = req.params
 	const { title, description, status } = req.body
@@ -57,6 +66,9 @@ export const updateTaskById = async (req, res) => {
 	})
 }
 
+/**
+ * Delete a task by id for the logged in user, check if task belongs to user
+ */
 export const deleteTaskById = async (req, res) => {
 	const { id } = req.params
 	const [task] = await db.select().from(TaskTable).where(eq(TaskTable.id, id))
@@ -72,7 +84,6 @@ export const deleteTaskById = async (req, res) => {
 			.json({ message: 'Forbidden, Only the owner can perform this action' })
 	}
 
-	// delete task
 	await db.delete(TaskTable).where(eq(TaskTable.id, id))
 
 	return res
