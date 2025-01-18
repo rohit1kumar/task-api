@@ -1,6 +1,8 @@
 import TaskTable from '../models/tasks.js'
 import db from '../config/database.js'
 import { eq } from 'drizzle-orm'
+import { paginationSchema } from '../utils/schema.js'
+import config from '../config/index.js'
 
 /**
  * Create a new task for the user, returns the created task
@@ -24,14 +26,32 @@ export const createTask = async (req, res) => {
  */
 export const getTasksByUser = async (req, res) => {
 	const { id: userId } = req.user
-	// TODO: add pagination
-	const tasks = await db
+
+	const { status, page, pageSize } = paginationSchema.parse(req.query)
+
+	const offset = (page - 1) * pageSize
+
+	// Build the query with optional filtering by status
+	let query = db
 		.select()
 		.from(TaskTable)
 		.where(eq(TaskTable.userId, userId))
+		.limit(pageSize)
+		.offset(offset)
+
+	if (status) {
+		query = query.where(eq(TaskTable.status, status))
+	}
+
+	const tasks = await query
+
 	return res.status(200).json({
 		message: 'Tasks fetched successfully',
-		data: tasks
+		data: tasks,
+		meta: {
+			page,
+			pageSize
+		}
 	})
 }
 
