@@ -2,7 +2,6 @@ import TaskTable from '../models/tasks.js'
 import db from '../config/database.js'
 import { eq } from 'drizzle-orm'
 import { paginationSchema } from '../utils/schema.js'
-import config from '../config/index.js'
 
 /**
  * Create a new task for the user, returns the created task
@@ -23,6 +22,10 @@ export const createTask = async (req, res) => {
 
 /**
  * Get all tasks for the logged in user
+ * with optional filtering by status and pagination with page and pageSize
+ * page - optional, defaults to 1
+ * pageSize - optional, defaults to 10
+ * status - optional (enum: 'pending', 'in-progress', 'completed')
  */
 export const getTasksByUser = async (req, res) => {
 	const { id: userId } = req.user

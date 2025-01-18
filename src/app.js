@@ -1,11 +1,8 @@
 import express from 'express'
 import morgan from 'morgan'
-import dotenv from 'dotenv'
 import authRoutes from './routes/authRoutes.js'
 import taskRoutes from './routes/taskRoutes.js'
 import { errorHandler, healthCheck, notFound } from './utils/routes.js'
-
-dotenv.config()
 
 const app = express()
 

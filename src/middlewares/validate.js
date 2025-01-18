@@ -1,4 +1,7 @@
-export const validate = (schema) => async (req, res, next) => {
+/**
+ * Validate the request body against a zod schema
+ */
+export const validateSchema = (schema) => async (req, res, next) => {
 	try {
 		await schema.parseAsync(req.body)
 		next()
