@@ -32,7 +32,12 @@ npm install
 cp .env.example .env
 ```
 
-4. Run the server
+4. Run migrations (make sure database `task_db` exist after step 3)
+```bash
+npm run db:migrate
+```
+
+5. Run the server
 
 ```bash
 npm start
