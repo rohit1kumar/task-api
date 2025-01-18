@@ -9,8 +9,8 @@ Task Management API is a RESTful API that allows users to create, read, update, 
 - Only owner of the task can view, update, and delete respective tasks
 
 ## [Database Design](https://drawsql.app/teams/me-453/diagrams/task-api)
+![drawSQL-image-export-2025-01-18](https://github.com/user-attachments/assets/b31ee45c-07d6-49e5-8289-6ef625998830)
 
-![drawSQL-image-export-2025-01-18](https://private-user-images.githubusercontent.com/34623568/404543498-85b36c4e-945f-4ccd-bfda-be36dcf36199.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MzcyMTM4MjcsIm5iZiI6MTczNzIxMzUyNywicGF0aCI6Ii8zNDYyMzU2OC80MDQ1NDM0OTgtODViMzZjNGUtOTQ1Zi00Y2NkLWJmZGEtYmUzNmRjZjM2MTk5LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTAxMTglMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUwMTE4VDE1MTg0N1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPThkNTZmNDA5MjgwYTdiNDg3NWQ5NWFhOWM3YTY1ZjczZDI2NzI1MTNhYmQ4MWRkODZkM2FmMDM0NWMxMTk4OTcmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.akbn8BfGTaOrP005Bihx--9fkoQRZOgv-yE5Rpmp2lw)
 
 ## How to run the project
 
