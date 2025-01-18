@@ -2,7 +2,8 @@ import express from 'express'
 import morgan from 'morgan'
 import authRoutes from './routes/authRoutes.js'
 import taskRoutes from './routes/taskRoutes.js'
-import { errorHandler, healthCheck, notFound } from './utils/routes.js'
+import { healthCheck, notFound } from './utils/routes.js'
+import { errorHandler } from './middlewares/error.js'
 
 const app = express()
 
@@ -20,6 +21,6 @@ app.use('/api/v1/tasks', taskRoutes)
  */
 app.use('/health', healthCheck)
 app.use('*', notFound)
-app.use(errorHandler)
+app.use(errorHandler) //Must be the last middleware
 
 export default app
