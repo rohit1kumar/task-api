@@ -6,7 +6,7 @@ import {
 	timestamp,
 	varchar
 } from 'drizzle-orm/pg-core'
-import { users } from './users'
+import users from './users.js'
 
 export const statusEnums = pgEnum('status', [
 	'pending',
@@ -14,7 +14,7 @@ export const statusEnums = pgEnum('status', [
 	'completed'
 ])
 
-export const tasks = pgTable('tasks', {
+export default pgTable('tasks', {
 	id: uuid().primaryKey().defaultRandom(),
 	title: varchar('title', { length: 255 }).notNull(),
 	description: text('description'),
