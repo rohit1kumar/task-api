@@ -20,7 +20,7 @@ export default pgTable('tasks', {
 	description: text('description'),
 	status: statusEnums().default('pending').notNull(), // pending, in_progress, completed
 	userId: uuid('user_id')
-		.references(() => users.id)
+		.references(() => users.id, { onDelete: 'cascade' })
 		.notNull(),
 	createdAt: timestamp('created_at').defaultNow(),
 	updatedAt: timestamp('updated_at').defaultNow()
