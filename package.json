@@ -8,7 +8,7 @@
     "start": "node src/index.js",
     "dev": "node --watch src/index.js",
     "lint": "eslint src/**/*.js --fix",
-    "db:generate": "drizzle-kit generate --name",
+    "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate"
   },
   "author": "",
@@ -19,5 +19,11 @@
     "drizzle-orm": "^0.38.4",
     "express": "^4.21.2",
     "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.18.0",
+    "drizzle-kit": "^0.30.2",
+    "eslint": "^9.18.0",
+    "globals": "^15.14.0"
   }
 }
