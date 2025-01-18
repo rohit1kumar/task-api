@@ -1,0 +1,822 @@
+{
+	"info": {
+		"_postman_id": "94624358-d74d-4b1c-a8e7-1f5de45fdb68",
+		"name": "tasks_api",
+		"description": "Tast API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20980024"
+	},
+	"item": [
+		{
+			"name": "Auth (user)",
+			"item": [
+				{
+					"name": "Register a User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body has a token\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.token).to.not.be.empty;\r",
+									"    pm.environment.set(\"TOKEN\", jsonData.data.token);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test4@test.com\",\r\n    \"password\": \"test123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/auth/register",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						},
+						"description": "### Auth Register\n\nThis endpoint allows users to register with the application.\n\n#### Request Body\n\n- email (string, required): The email of the user.\n    \n- password (string, required): The password for the user's account.\n    \n\n#### Response\n\nThe response is in JSON format and follows the schema below:\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"message\": {\n            \"type\": \"string\"\n        },\n        \"data\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"token\": {\n                    \"type\": \"string\"\n                },\n                \"user\": {\n                    \"type\": \"string\"\n                }\n            }\n        }\n    }\n}\n\n ```\n\nThe response includes a status code of 201 (Created) and a JSON object with a message and data containing a token and user information.\n\n#### Example Response\n\n``` json\n{\n    \"message\": \"\",\n    \"data\": {\n        \"token\": \"\",\n        \"user\": \"\"\n    }\n}\n\n ```"
+					},
+					"response": [
+						{
+							"name": "Successfully register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"test123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/api/v1/auth/register",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "295"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"127-j2pHGPPvK9ignnfqYj0QfXHBAWY\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 18 Jan 2025 15:38:37 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User registered successfully\",\n    \"data\": {\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkxNGUyZTk2LTk3ZjktNGI1OS1hMmFkLTdmYjlmZDE5MTU5YyIsImlhdCI6MTczNzIxNDcxNywiZXhwIjoxNzM3MzAxMTE3fQ.Xqiug24hAzFhIwgjdailm5sGvEs5_CGT8PzC1srbKPg\",\n        \"user\": \"914e2e96-97f9-4b59-a2ad-7fb9fd19159c\"\n    }\n}"
+						},
+						{
+							"name": "Duplicate email address",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"test123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/api/v1/auth/register",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "49"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"31-kAANIpXFuQ6I53ZbDDsMLt8aPOU\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 18 Jan 2025 15:39:10 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User with this email already exists\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Login (Get a JWT token)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body has a token\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.token).to.not.be.empty;\r",
+									"    pm.environment.set(\"TOKEN\", jsonData.data.token);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"test@test.com\",\r\n    \"password\" :\"test123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/auth/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						},
+						"description": "### Auth Login\n\nThis endpoint is used to authenticate a user and obtain an access token.\n\n#### Request Body\n\n- email (string, required): The email address of the user.\n    \n- password (string, required): The password of the user.\n    \n\n#### Response\n\n- message (string): A message related to the authentication process.\n    \n- data\n    \n    - token (string): The access token obtained after successful authentication.\n        \n    - user (object): Information about the authenticated user."
+					},
+					"response": [
+						{
+							"name": "Successfully login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"test123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/api/v1/auth/login",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "294"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"126-txeEDnYHH0kGTNhmCqN6trzCUK8\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 18 Jan 2025 15:39:37 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User logged in successfully\",\n    \"data\": {\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkxNGUyZTk2LTk3ZjktNGI1OS1hMmFkLTdmYjlmZDE5MTU5YyIsImlhdCI6MTczNzIxNDc3NywiZXhwIjoxNzM3MzAxMTc3fQ.Ycf0_JC70KaiYZq3-hSyxW_gGmcT0jvkxaiTBMRlvsA\",\n        \"user\": \"914e2e96-97f9-4b59-a2ad-7fb9fd19159c\"\n    }\n}"
+						},
+						{
+							"name": "Invalid Credentials",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"test@test.com\",\r\n    \"password\" :\"test1235\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/api/v1/auth/login",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "33"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"21-dBEoW0UmTF+EGUMaprEp9/8zNNA\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 18 Jan 2025 15:43:31 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Invalid credentials\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "tasks",
+			"item": [
+				{
+					"name": "Create a Task",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Shopping @CP\",\r\n    \"description\" :\"Buy jean and shirt at CP today with rohit\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/tasks",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"tasks"
+							]
+						},
+						"description": "The endpoint allows users to create a new task\n\n### Request Body\n\n- title (string, required): The title of the task.\n    \n- description (string, optional): The description of the task.\n    \n\n### Response\n\nThe response to this request is a JSON object with the following schema:\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"message\": {\n            \"type\": \"string\"\n        },\n        \"data\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"id\": {\n                    \"type\": \"string\"\n                },\n                \"title\": {\n                    \"type\": \"string\"\n                },\n                \"description\": {\n                    \"type\": \"string\"\n                },\n                \"status\": {\n                    \"type\": \"string\"\n                },\n                \"userId\": {\n                    \"type\": \"string\"\n                },\n                \"createdAt\": {\n                    \"type\": \"string\"\n                },\n                \"updatedAt\": {\n                    \"type\": \"string\"\n                }\n            }\n        }\n    }\n}\n\n ```"
+					},
+					"response": [
+						{
+							"name": "Task Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Shopping @CP\",\r\n    \"description\" :\"Buy jean and shirt at CP today with rohit\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/api/v1/tasks",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"tasks"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "318"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"13e-hXUE5ZoEUDR+fcLE6yAxHHQEg28\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 18 Jan 2025 15:47:24 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Task created successfully\",\n    \"data\": {\n        \"id\": \"f77b99bb-7c08-4ecc-9437-e47185267dae\",\n        \"title\": \"Shopping @CP\",\n        \"description\": \"Buy jean and shirt at CP today with rohit\",\n        \"status\": \"pending\",\n        \"userId\": \"914e2e96-97f9-4b59-a2ad-7fb9fd19159c\",\n        \"createdAt\": \"2025-01-18T21:17:24.819Z\",\n        \"updatedAt\": \"2025-01-18T21:17:24.819Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get all tasks (Logined user)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/tasks?status=pending",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "pending"
+								}
+							]
+						},
+						"description": "### GET /api/v1/tasks\nThe endpoint allows logined user to get paginated tasks with filtering for status\n\n### Request URL Parameters\n\n`status` (string, optional) : status of the task (pending, completed, in_progress)  \n`page` (string, optional) : page number (default 1)  \n`pageSize` (string, optional) : number of item (default 10)\n\n### Response\n\nThe response to this request is a JSON object with the following schema:\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"message\": {\n            \"type\": \"string\"\n        },\n        \"data\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"id\": {\n                        \"type\": \"string\"\n                    },\n                    \"title\": {\n                        \"type\": \"string\"\n                    },\n                    \"description\": {\n                        \"type\": \"string\"\n                    },\n                    \"status\": {\n                        \"type\": \"string\"\n                    },\n                    \"userId\": {\n                        \"type\": \"string\"\n                    },\n                    \"createdAt\": {\n                        \"type\": \"string\"\n                    },\n                    \"updatedAt\": {\n                        \"type\": \"string\"\n                    }\n                }\n            }\n        },\n        \"meta\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"page\": {\n                    \"type\": \"integer\"\n                },\n                \"pageSize\": {\n                    \"type\": \"integer\"\n                }\n            }\n        }\n    }\n}\n\n ```"
+					},
+					"response": [
+						{
+							"name": "Get lognied uses tasks with pagination",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/api/v1/tasks",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"tasks"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "353"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"161-aAuR7TAHlTT/YtVfQ/NbvopAt50\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 18 Jan 2025 15:54:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Tasks fetched successfully\",\n    \"data\": [\n        {\n            \"id\": \"f77b99bb-7c08-4ecc-9437-e47185267dae\",\n            \"title\": \"Shopping @CP\",\n            \"description\": \"Buy jean and shirt at CP today with rohit\",\n            \"status\": \"pending\",\n            \"userId\": \"914e2e96-97f9-4b59-a2ad-7fb9fd19159c\",\n            \"createdAt\": \"2025-01-18T21:17:24.819Z\",\n            \"updatedAt\": \"2025-01-18T21:17:24.819Z\"\n        }\n    ],\n    \"meta\": {\n        \"page\": 1,\n        \"pageSize\": 10\n    }\n}"
+						},
+						{
+							"name": "Filter by status",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/api/v1/tasks?status=pending",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"tasks"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "pending"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "82"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"52-DWENy2Xk1Xb9qxdPrfpdmsr4sPI\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 18 Jan 2025 16:20:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Tasks fetched successfully\",\n    \"data\": [],\n    \"meta\": {\n        \"page\": 1,\n        \"pageSize\": 10\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Task by ID",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"status\": \"completed\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/tasks/f77b99bb-7c08-4ecc-9437-e47185267dae",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"tasks",
+								"f77b99bb-7c08-4ecc-9437-e47185267dae"
+							]
+						},
+						"description": "### PATCH /api/v1/tasks/{taskId}\n\nThis endpoint is used to update a specific task.\n\n#### Request Body\n\n- `title` (string, optional): Title of the task\n    \n- `description` (string, optional): Description\n    \n- `status` (string, optional): Status of task Possible values: \"completed\", \"pending\", \"in_progress\"\n    \n\n#### Response\n\nThe response will be in JSON format with the following schema:\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"message\": {\n            \"type\": \"string\"\n        },\n        \"data\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"id\": {\n                    \"type\": \"string\"\n                },\n                \"title\": {\n                    \"type\": \"string\"\n                },\n                \"description\": {\n                    \"type\": \"string\"\n                },\n                \"status\": {\n                    \"type\": \"string\"\n                },\n                \"userId\": {\n                    \"type\": \"string\"\n                },\n                \"createdAt\": {\n                    \"type\": \"string\"\n                },\n                \"updatedAt\": {\n                    \"type\": \"string\"\n                }\n            }\n        }\n    }\n}\n\n ```"
+					},
+					"response": [
+						{
+							"name": "Update task by ID",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n     \"status\": \"completed\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/api/v1/tasks/f77b99bb-7c08-4ecc-9437-e47185267dae",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"tasks",
+										"f77b99bb-7c08-4ecc-9437-e47185267dae"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "320"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"140-Ahz43XDOrhjRu1BbMfb/eTGQDSk\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 18 Jan 2025 16:12:15 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Task updated successfully\",\n    \"data\": {\n        \"id\": \"f77b99bb-7c08-4ecc-9437-e47185267dae\",\n        \"title\": \"Shopping @CP\",\n        \"description\": \"Buy jean and shirt at CP today with rohit\",\n        \"status\": \"completed\",\n        \"userId\": \"914e2e96-97f9-4b59-a2ad-7fb9fd19159c\",\n        \"createdAt\": \"2025-01-18T21:17:24.819Z\",\n        \"updatedAt\": \"2025-01-18T21:17:24.819Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/tasks/f77b99bb-7c08-4ecc-9437-e47185267dae",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"tasks",
+								"f77b99bb-7c08-4ecc-9437-e47185267dae"
+							]
+						},
+						"description": "### DELETE api/v1/tasks\n\nDelete a task by task id\n\n### Response\n\nThe response is in JSON format and follows the schema below:\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"message\": {\n            \"type\": \"string\"\n        },\n        \"data\": {\n            \"type\": \"null\"\n        }\n    }\n}\n\n ```"
+					},
+					"response": [
+						{
+							"name": "Delete by ID",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/api/v1/tasks/f77b99bb-7c08-4ecc-9437-e47185267dae",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"tasks",
+										"f77b99bb-7c08-4ecc-9437-e47185267dae"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "51"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"33-1NDJMBnhMFIY58WXBIuGb6dfDnI\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 18 Jan 2025 16:21:07 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Task deleted successfully\",\n    \"data\": null\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "TOKEN",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
