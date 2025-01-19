@@ -15,6 +15,13 @@
       "when": 1737214482168,
       "tag": "0001_cold_flatman",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1737271057386,
+      "tag": "0002_flaky_sauron",
+      "breakpoints": true
     }
   ]
 }

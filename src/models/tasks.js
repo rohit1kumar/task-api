@@ -4,7 +4,8 @@ import {
 	uuid,
 	text,
 	timestamp,
-	varchar
+	varchar,
+	index
 } from 'drizzle-orm/pg-core'
 import users from './users.js'
 
@@ -14,14 +15,18 @@ export const statusEnums = pgEnum('status', [
 	'completed'
 ])
 
-export default pgTable('tasks', {
-	id: uuid().primaryKey().defaultRandom(),
-	title: varchar('title', { length: 255 }).notNull(),
-	description: text('description'),
-	status: statusEnums().default('pending').notNull(), // pending, in_progress, completed
-	userId: uuid('user_id')
-		.references(() => users.id, { onDelete: 'cascade' })
-		.notNull(),
-	createdAt: timestamp('created_at').defaultNow(),
-	updatedAt: timestamp('updated_at').defaultNow()
-})
+export default pgTable(
+	'tasks',
+	{
+		id: uuid().primaryKey().defaultRandom(),
+		title: varchar('title', { length: 255 }).notNull(),
+		description: text('description'),
+		status: statusEnums().default('pending').notNull(), // pending, in_progress, completed
+		userId: uuid('user_id')
+			.references(() => users.id, { onDelete: 'cascade' })
+			.notNull(),
+		createdAt: timestamp('created_at').defaultNow(),
+		updatedAt: timestamp('updated_at').defaultNow()
+	},
+	(table) => [index('user_id_idx').on(table.userId)]
+)
