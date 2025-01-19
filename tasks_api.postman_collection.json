@@ -195,8 +195,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 201\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Response body has a token\", function () {\r",
@@ -265,8 +265,8 @@
 									]
 								}
 							},
-							"status": "Created",
-							"code": 201,
+							"status": "OK",
+							"code": 200,
 							"_postman_previewlanguage": "json",
 							"header": [
 								{
@@ -628,7 +628,7 @@
 								"f77b99bb-7c08-4ecc-9437-e47185267dae"
 							]
 						},
-						"description": "### PATCH /api/v1/tasks/{taskId}\n\nThis endpoint is used to update a specific task.\n\n#### Request Body\n\n- `title` (string, optional): Title of the task\n    \n- `description` (string, optional): Description\n    \n- `status` (string, optional): Status of task Possible values: \"completed\", \"pending\", \"in_progress\"\n    \n\n#### Response\n\nThe response will be in JSON format with the following schema:\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"message\": {\n            \"type\": \"string\"\n        },\n        \"data\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"id\": {\n                    \"type\": \"string\"\n                },\n                \"title\": {\n                    \"type\": \"string\"\n                },\n                \"description\": {\n                    \"type\": \"string\"\n                },\n                \"status\": {\n                    \"type\": \"string\"\n                },\n                \"userId\": {\n                    \"type\": \"string\"\n                },\n                \"createdAt\": {\n                    \"type\": \"string\"\n                },\n                \"updatedAt\": {\n                    \"type\": \"string\"\n                }\n            }\n        }\n    }\n}\n\n ```"
+						"description": "### PATCH /api/v1/tasks/{taskId}\n\nThis endpoint is used to update a specific task.\n\n#### Request Body\n\n- `title` (string, optional): Title of the task\n    \n- `description` (string, optional): Description\n    \n- `status` (string, optional): Status of task Possible values: \"completed\", \"pending\", \"in_progress\"\n    \n\n#### Response\n\nThe response will be in JSON format with the following schema:\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"message\": {\n            \"type\": \"string\"\n        }\n    }\n}\n\n ```"
 					},
 					"response": [
 						{
@@ -692,7 +692,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"message\": \"Task updated successfully\",\n    \"data\": {\n        \"id\": \"f77b99bb-7c08-4ecc-9437-e47185267dae\",\n        \"title\": \"Shopping @CP\",\n        \"description\": \"Buy jean and shirt at CP today with rohit\",\n        \"status\": \"completed\",\n        \"userId\": \"914e2e96-97f9-4b59-a2ad-7fb9fd19159c\",\n        \"createdAt\": \"2025-01-18T21:17:24.819Z\",\n        \"updatedAt\": \"2025-01-18T21:17:24.819Z\"\n    }\n}"
+							"body": "{\n    \"message\": \"Task updated successfully\"\n}"
 						}
 					]
 				},
@@ -713,7 +713,7 @@
 								"f77b99bb-7c08-4ecc-9437-e47185267dae"
 							]
 						},
-						"description": "### DELETE api/v1/tasks\n\nDelete a task by task id\n\n### Response\n\nThe response is in JSON format and follows the schema below:\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"message\": {\n            \"type\": \"string\"\n        },\n        \"data\": {\n            \"type\": \"null\"\n        }\n    }\n}\n\n ```"
+						"description": "### DELETE api/v1/tasks\n\nDelete a task by task id\n\n### Response\n\nThe response is in JSON format and follows the schema below:\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"message\": {\n            \"type\": \"string\"\n        }\n    }\n}\n\n ```"
 					},
 					"response": [
 						{
@@ -768,7 +768,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"message\": \"Task deleted successfully\",\n    \"data\": null\n}"
+							"body": "{\n    \"message\": \"Task deleted successfully\"\n}"
 						}
 					]
 				}

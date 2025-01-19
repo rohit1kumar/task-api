@@ -1,4 +1,4 @@
-import TaskTable from '../models/tasks.js'
+import taskTable from '../models/tasks.js'
 import db from '../config/database.js'
 import { eq } from 'drizzle-orm'
 import { paginationSchema } from '../utils/schema.js'
@@ -13,7 +13,7 @@ export const createTask = async (req, res, next) => {
 		const { id: userId } = req.user
 
 		const [task] = await db
-			.insert(TaskTable)
+			.insert(taskTable)
 			.values({ title, description, userId })
 			.returning()
 		return res.status(statusCode.CREATED).json({
@@ -43,13 +43,13 @@ export const getTasksByUser = async (req, res, next) => {
 		// Build the query with optional filtering by status
 		let query = db
 			.select()
-			.from(TaskTable)
-			.where(eq(TaskTable.userId, userId))
+			.from(taskTable)
+			.where(eq(taskTable.userId, userId))
 			.limit(pageSize)
 			.offset(offset)
 
 		if (status) {
-			query = query.where(eq(TaskTable.status, status))
+			query = query.where(eq(taskTable.status, status))
 		}
 
 		const tasks = await query
@@ -75,7 +75,7 @@ export const updateTaskById = async (req, res, next) => {
 		const { id } = req.params
 		const { title, description, status } = req.body
 
-		const [task] = await db.select().from(TaskTable).where(eq(TaskTable.id, id))
+		const [task] = await db.select().from(taskTable).where(eq(taskTable.id, id))
 		if (!task) {
 			return res
 				.status(statusCode.NOT_FOUND)
@@ -90,14 +90,13 @@ export const updateTaskById = async (req, res, next) => {
 				.json({ message: 'Only the owner can perform this action' })
 		}
 
-		const [updateTask] = await db
-			.update(TaskTable)
+		await db
+			.update(taskTable)
 			.set({ title, description, status })
-			.where(eq(TaskTable.id, id))
-			.returning()
-		return res.status(statusCode.CREATED).json({
-			message: 'Task updated successfully',
-			data: updateTask
+			.where(eq(taskTable.id, id))
+
+		return res.status(statusCode.OK).json({
+			message: 'Task updated successfully'
 		})
 	} catch (error) {
 		next(error)
@@ -110,7 +109,7 @@ export const updateTaskById = async (req, res, next) => {
 export const deleteTaskById = async (req, res, next) => {
 	try {
 		const { id } = req.params
-		const [task] = await db.select().from(TaskTable).where(eq(TaskTable.id, id))
+		const [task] = await db.select().from(taskTable).where(eq(taskTable.id, id))
 		if (!task) {
 			return res
 				.status(statusCode.NOT_FOUND)
@@ -125,11 +124,11 @@ export const deleteTaskById = async (req, res, next) => {
 				.json({ message: 'Forbidden, Only the owner can perform this action' })
 		}
 
-		await db.delete(TaskTable).where(eq(TaskTable.id, id))
+		await db.delete(taskTable).where(eq(taskTable.id, id))
 
 		return res
 			.status(statusCode.OK)
-			.json({ message: 'Task deleted successfully', data: null })
+			.json({ message: 'Task deleted successfully' })
 	} catch (error) {
 		next(error)
 	}
